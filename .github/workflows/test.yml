@@ -1,44 +1,40 @@
 name: CI Implementation
 on:
-    push:
-        branches: [main]
-    pull_request:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Chekout code
-              uses: actions/checkout@v3
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chekout code
+        uses: actions/checkout@v3
 
-            - name: Setup node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 14.x
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
 
-             - name: Start MongoDB
-               uses: supercharge/mongodb-github-action@1.8.0
-               with:
-                mongodb-version: '5.0' 
-     
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: "5.0"
 
-            - name: Run frontend
-              run: |
-                  cd contact-fox-frontend
-                  npm i
-                  npm start &
+      - name: Run frontend
+        run: |
+          cd contact-fox-frontend
+          npm i
+          npm start &
 
-            - name: Run backend
-              run: |
-                  cd contact-fox-backend
-                  npm i
-                  npm start &
+      - name: Run backend
+        run: |
+          cd contact-fox-backend
+          npm i
+          npm start &
 
-            - name: Run test
-              run: |
-                  cd tests
-                  npm i
-                  npm run test:e2e features/login.feature
-
-            
-                
+      - name: Run test
+        run: |
+          cd tests
+          npm i
+          npm run test:e2e features/login.feature
