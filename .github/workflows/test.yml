@@ -21,17 +21,21 @@ jobs:
         with:
           mongodb-version: "5.0"
 
+      - name: Run backend
+        run: |
+          sudo apt-get install wait-for-it -y
+          wait-for-it -h localhost -p 27017 -t 10 -q -s -- echo "mongoose is running" 
+          cd contact-fox-backend
+          npm i
+          npm start &
+          wait-for-it -h localhost -p 5000 -t 10 -q -s -- echo "contact-fox-backend is running"
+
       - name: Run frontend
         run: |
           cd contact-fox-frontend
           npm i
           npm start &
-
-      - name: Run backend
-        run: |
-          cd contact-fox-backend
-          npm i
-          npm start &
+          wait-for-it -h localhost -p 3000 -t 10 -q -s -- echo " contact-fox-frontend is running"
 
       - name: Run test
         run: |
