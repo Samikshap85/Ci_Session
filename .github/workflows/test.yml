@@ -17,19 +17,19 @@ jobs:
                   node-version: 14.x
 
             - name: Run frontend
-                run: |
+              run: |
                   cd contact-fox-frontend
                   npm i
                   npm start &
 
             - name: Run backend
-                run: |
+              run: |
                   cd contact-fox-backend
                   npm i
                   npm start &
 
             - name: Run test
-                run: |
+              run: |
                   cd tests
                   npm i
                   npm run test:e2e features/login.feature
